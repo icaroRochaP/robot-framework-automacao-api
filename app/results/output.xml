@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.1.1 (Python 3.12.3 on win32)" generated="2025-07-14T09:13:10.108705" rpa="false" schemaversion="5">
+<suite id="s1" name="POC" source="C:\Users\Usuário\Desktop\Curso_Robot\AUTOMACAO_TREINAMENTO\app\suites\POC.robot">
+<test id="s1-t1" name="Test" line="7">
+<kw name="Abrir conexões com as APIs" owner="setup_teardown" type="SETUP">
+<kw name="Set Log Level" owner="BuiltIn">
+<msg time="2025-07-14T09:13:10.738514" level="DEBUG">Log level changed from INFO to TRACE.</msg>
+<msg time="2025-07-14T09:13:10.738514" level="TRACE">Return: 'INFO'</msg>
+<arg>TRACE</arg>
+<doc>Sets the log threshold to the specified level.</doc>
+<status status="PASS" start="2025-07-14T09:13:10.738514" elapsed="0.000000"/>
+</kw>
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-07-14T09:13:10.738514" level="TRACE">Arguments: [ alias='API_OPERACOES' | url='http://127.0.0.1:8000/' | disable_warnings=1 ]</msg>
+<msg time="2025-07-14T09:13:10.738514" level="INFO">Creating Session using : alias=API_OPERACOES, url=http://127.0.0.1:8000/, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<msg time="2025-07-14T09:13:10.738514" level="DEBUG">Creating session: API_OPERACOES</msg>
+<msg time="2025-07-14T09:13:10.738514" level="TRACE">Return: &lt;requests.sessions.Session object at 0x0000021F4A509340&gt;</msg>
+<arg>alias=${ALIAS_API}</arg>
+<arg>url=${LOCAL}</arg>
+<arg>disable_warnings=1</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-07-14T09:13:10.738514" elapsed="0.000000"/>
+</kw>
+<kw name="Gerar tokens para os perfis de usuários" owner="autenticacao">
+<msg time="2025-07-14T09:13:10.738514" level="TRACE">Arguments: [  ]</msg>
+<kw name="Realizar o login de um usuário" owner="autenticacao">
+<msg time="2025-07-14T09:13:10.738514" level="TRACE">Arguments: [ ${USUARIO}={'email': 'adm@adm.com', 'senha': '123456'} ]</msg>
+<kw name="Criar o body da request conforme o template JSON" owner="body_build">
+<msg time="2025-07-14T09:13:10.738514" level="TRACE">Arguments: [ ${PATH_TEMPLATE}='\\templates\\template_login.json' ]</msg>
+<kw name="Load Json From File" owner="JSONLibrary">
+<msg time="2025-07-14T09:13:10.738514" level="TRACE">Arguments: [ file_name='C:\\Users\\Usuário\\Desktop\\Curso_Robot\\AUTOMACAO_TREINAMENTO\\app\\resources\\keywords\\templates\\template_login.json' | encoding='UTF-8' ]</msg>
+<msg time="2025-07-14T09:13:10.738514" level="DEBUG">Check if file exists</msg>
+<msg time="2025-07-14T09:13:10.738514" level="TRACE">Return: {'username': 'string', 'password': 'string'}</msg>
+<msg time="2025-07-14T09:13:10.738514" level="INFO">${BODY_REQUEST} = {'username': 'string', 'password': 'string'}</msg>
+<var>${BODY_REQUEST}</var>
+<arg>file_name=C:\\Users\\Usuário\\Desktop\\Curso_Robot\\AUTOMACAO_TREINAMENTO\\app\\resources\\keywords${PATH_TEMPLATE}</arg>
+<arg>encoding=UTF-8</arg>
+<doc>Load JSON from file.</doc>
+<status status="PASS" start="2025-07-14T09:13:10.738514" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-07-14T09:13:10.738514" level="TRACE">Arguments: [ {'username': 'string', 'password': 'string'} ]</msg>
+<msg time="2025-07-14T09:13:10.738514" level="INFO">{'username': 'string', 'password': 'string'}</msg>
+<msg time="2025-07-14T09:13:10.738514" level="TRACE">Return: None</msg>
+<arg>${BODY_REQUEST}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-07-14T09:13:10.738514" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${BODY_REQUEST}</value>
+<status status="PASS" start="2025-07-14T09:13:10.738514" elapsed="0.000000"/>
+</return>
+<msg time="2025-07-14T09:13:10.738514" level="TRACE">Return: {'username': 'string', 'password': 'string'}</msg>
+<msg time="2025-07-14T09:13:10.738514" level="INFO">${BODY_REQUEST} = {'username': 'string', 'password': 'string'}</msg>
+<var>${BODY_REQUEST}</var>
+<arg>PATH_TEMPLATE=${PATH_TEMPLETE_LOGIN}</arg>
+<doc>Retorna um JSON conforme o path do template informado</doc>
+<status status="PASS" start="2025-07-14T09:13:10.738514" elapsed="0.000000"/>
+</kw>
+<kw name="Alterar o valor do campo no body" owner="body_build">
+<msg time="2025-07-14T09:13:10.738514" level="TRACE">Arguments: [ ${BODY_REQUEST}={'username': 'string', 'password': 'string'} | ${PATH_CAMPO}='$.username' | ${NEW_VALOR}='adm@adm.com' ]</msg>
+<kw name="Update Value To Json" owner="JSONLibrary">
+<msg time="2025-07-14T09:13:10.738514" level="TRACE">Arguments: [ json_object={'username': 'string', 'password': 'string'} | json_path='$.username' | new_value='adm@adm.com' ]</msg>
+<msg time="2025-07-14T09:13:10.765158" level="TRACE">Return: {'username': 'adm@adm.com', 'password': 'string'}</msg>
+<msg time="2025-07-14T09:13:10.765158" level="INFO">${BODY_REQUEST} = {'username': 'adm@adm.com', 'password': 'string'}</msg>
+<var>${BODY_REQUEST}</var>
+<arg>json_object=${BODY_REQUEST}</arg>
+<arg>json_path=${PATH_CAMPO}</arg>
+<arg>new_value=${NEW_VALOR}</arg>
+<doc>Update value to JSON using JSONPath</doc>
+<status status="PASS" start="2025-07-14T09:13:10.738514" elapsed="0.026644"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-07-14T09:13:10.765158" level="TRACE">Arguments: [ {'username': 'adm@adm.com', 'password': 'string'} ]</msg>
+<msg time="2025-07-14T09:13:10.765158" level="INFO">{'username': 'adm@adm.com', 'password': 'string'}</msg>
+<msg time="2025-07-14T09:13:10.765158" level="TRACE">Return: None</msg>
+<arg>${BODY_REQUEST}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-07-14T09:13:10.765158" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${BODY_REQUEST}</value>
+<status status="PASS" start="2025-07-14T09:13:10.765158" elapsed="0.000000"/>
+</return>
+<msg time="2025-07-14T09:13:10.765158" level="TRACE">Return: {'username': 'adm@adm.com', 'password': 'string'}</msg>
+<msg time="2025-07-14T09:13:10.765158" level="INFO">${BODY_REQUEST} = {'username': 'adm@adm.com', 'password': 'string'}</msg>
+<var>${BODY_REQUEST}</var>
+<arg>BODY_REQUEST=${BODY_REQUEST}</arg>
+<arg>PATH_CAMPO=${TEMPLATE_LOGIN.username}</arg>
+<arg>NEW_VALOR=${USUARIO.email}</arg>
+<doc>Altera o valor do campo conforme o path informado. E retorna o Body alterado</doc>
+<status status="PASS" start="2025-07-14T09:13:10.738514" elapsed="0.026644"/>
+</kw>
+<kw name="Alterar o valor do campo no body" owner="body_build">
+<msg time="2025-07-14T09:13:10.765158" level="TRACE">Arguments: [ ${BODY_REQUEST}={'username': 'adm@adm.com', 'password': 'string'} | ${PATH_CAMPO}='$.username' | ${NEW_VALOR}='123456' ]</msg>
+<kw name="Update Value To Json" owner="JSONLibrary">
+<msg time="2025-07-14T09:13:10.765158" level="TRACE">Arguments: [ json_object={'username': 'adm@adm.com', 'password': 'string'} | json_path='$.username' | new_value='123456' ]</msg>
+<msg time="2025-07-14T09:13:10.786451" level="TRACE">Return: {'username': '123456', 'password': 'string'}</msg>
+<msg time="2025-07-14T09:13:10.786451" level="INFO">${BODY_REQUEST} = {'username': '123456', 'password': 'string'}</msg>
+<var>${BODY_REQUEST}</var>
+<arg>json_object=${BODY_REQUEST}</arg>
+<arg>json_path=${PATH_CAMPO}</arg>
+<arg>new_value=${NEW_VALOR}</arg>
+<doc>Update value to JSON using JSONPath</doc>
+<status status="PASS" start="2025-07-14T09:13:10.765158" elapsed="0.022322"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-07-14T09:13:10.787480" level="TRACE">Arguments: [ {'username': '123456', 'password': 'string'} ]</msg>
+<msg time="2025-07-14T09:13:10.787480" level="INFO">{'username': '123456', 'password': 'string'}</msg>
+<msg time="2025-07-14T09:13:10.787480" level="TRACE">Return: None</msg>
+<arg>${BODY_REQUEST}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-07-14T09:13:10.787480" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${BODY_REQUEST}</value>
+<status status="PASS" start="2025-07-14T09:13:10.787480" elapsed="0.001020"/>
+</return>
+<msg time="2025-07-14T09:13:10.788513" level="TRACE">Return: {'username': '123456', 'password': 'string'}</msg>
+<msg time="2025-07-14T09:13:10.788513" level="INFO">${BODY_REQUEST} = {'username': '123456', 'password': 'string'}</msg>
+<var>${BODY_REQUEST}</var>
+<arg>BODY_REQUEST=${BODY_REQUEST}</arg>
+<arg>PATH_CAMPO=${TEMPLATE_LOGIN.username}</arg>
+<arg>NEW_VALOR=${USUARIO.senha}</arg>
+<doc>Altera o valor do campo conforme o path informado. E retorna o Body alterado</doc>
+<status status="PASS" start="2025-07-14T09:13:10.765158" elapsed="0.023355"/>
+</kw>
+<kw name="Enviar requisição para gerar o token do usuário" owner="users">
+<msg time="2025-07-14T09:13:10.788513" level="TRACE">Arguments: [ ${BODY_REQUEST}={'username': '123456', 'password': 'string'} ]</msg>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2025-07-14T09:13:10.790213" level="TRACE">Arguments: [ alias='API_OPERACOES' | url='users/login' | json={'username': '123456', 'password': 'string'} | expected_status='any' ]</msg>
+<msg time="2025-07-14T09:13:10.996737" level="INFO">POST Request : url=http://127.0.0.1:8000/users/login 
+ path_url=/users/login 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '44', 'Content-Type': 'application/json'} 
+ body=b'{"username": "123456", "password": "string"}' 
+ </msg>
+<msg time="2025-07-14T09:13:10.996737" level="INFO">POST Response : url=http://127.0.0.1:8000/users/login 
+ status=404, reason=Not Found 
+ headers={'date': 'Mon, 14 Jul 2025 12:13:10 GMT', 'server': 'uvicorn', 'content-length': '22', 'content-type': 'application/json'} 
+ body={"detail":"Not Found"} 
+ </msg>
+<msg time="2025-07-14T09:13:10.996737" level="TRACE">Return: &lt;Response [404]&gt;</msg>
+<msg time="2025-07-14T09:13:10.996737" level="INFO">${RESPONSE} = &lt;Response [404]&gt;</msg>
+<var>${RESPONSE}</var>
+<arg>alias=${ALIAS_API}</arg>
+<arg>url=${USERS}${POST_LOGIN}</arg>
+<arg>json=${BODY_REQUEST}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2025-07-14T09:13:10.788513" elapsed="0.208224"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-07-14T09:13:10.996737" level="TRACE">Arguments: [ '{"detail":"Not Found"}' ]</msg>
+<msg time="2025-07-14T09:13:10.996737" level="INFO">{"detail":"Not Found"}</msg>
+<msg time="2025-07-14T09:13:10.996737" level="TRACE">Return: None</msg>
+<arg>${RESPONSE.text}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-07-14T09:13:10.996737" elapsed="0.000000"/>
+</kw>
+<return>
+<value>${RESPONSE}</value>
+<status status="PASS" start="2025-07-14T09:13:10.996737" elapsed="0.000000"/>
+</return>
+<msg time="2025-07-14T09:13:10.996737" level="TRACE">Return: &lt;Response [404]&gt;</msg>
+<msg time="2025-07-14T09:13:10.996737" level="INFO">${TOKEN} = &lt;Response [404]&gt;</msg>
+<var>${TOKEN}</var>
+<arg>BODY_REQUEST=${BODY_REQUEST}</arg>
+<doc>Envia a requisição para autenticar e gerar o token de um usuário e retorna um Object Response da API</doc>
+<status status="PASS" start="2025-07-14T09:13:10.788513" elapsed="0.208224"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-07-14T09:13:10.996737" level="TRACE">Arguments: [ '{"detail":"Not Found"}' ]</msg>
+<msg time="2025-07-14T09:13:10.996737" level="INFO">{"detail":"Not Found"}</msg>
+<msg time="2025-07-14T09:13:10.996737" level="TRACE">Return: None</msg>
+<arg>${TOKEN.text}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-07-14T09:13:10.996737" elapsed="0.000000"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${TOKEN.json()['access_token']}&quot; == &quot;${EMPTY}&quot;">
+<kw name="Fatal Error" owner="BuiltIn">
+<arg>msg=Token não gerado</arg>
+<doc>Stops the whole test execution.</doc>
+<status status="NOT RUN" start="2025-07-14T09:13:10.996737" elapsed="0.000000"/>
+</kw>
+<msg time="2025-07-14T09:13:10.996737" level="FAIL">Invalid IF condition: Evaluating expression '"${TOKEN.json()[\'access_token\']}" == "${EMPTY}"' failed: Resolving variable '${TOKEN.json()['access_token']}' failed: KeyError: 'access_token'</msg>
+<status status="FAIL" start="2025-07-14T09:13:10.996737" elapsed="0.000000">Invalid IF condition: Evaluating expression '"${TOKEN.json()[\'access_token\']}" == "${EMPTY}"' failed: Resolving variable '${TOKEN.json()['access_token']}' failed: KeyError: 'access_token'</status>
+</branch>
+<branch type="ELSE">
+<return>
+<value>${TOKEN.json()['access_token']}</value>
+<status status="NOT RUN" start="2025-07-14T09:13:10.996737" elapsed="0.000000"/>
+</return>
+<status status="NOT RUN" start="2025-07-14T09:13:10.996737" elapsed="0.000000"/>
+</branch>
+<status status="FAIL" start="2025-07-14T09:13:10.996737" elapsed="0.000000">Invalid IF condition: Evaluating expression '"${TOKEN.json()[\'access_token\']}" == "${EMPTY}"' failed: Resolving variable '${TOKEN.json()['access_token']}' failed: KeyError: 'access_token'</status>
+</if>
+<var>${TOKEN_USER_ADM}</var>
+<arg>USUARIO=${USER_ADM}</arg>
+<doc>Realiza o login conforme os dados de usuário informados e retorna o token gerado</doc>
+<status status="FAIL" start="2025-07-14T09:13:10.738514" elapsed="0.258223">Invalid IF condition: Evaluating expression '"${TOKEN.json()[\'access_token\']}" == "${EMPTY}"' failed: Resolving variable '${TOKEN.json()['access_token']}' failed: KeyError: 'access_token'</status>
+</kw>
+<kw name="Set Global Variable" owner="BuiltIn">
+<var>${TOKEN_USER_ADM}</var>
+<arg>${TOKEN_USER_ADM}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<status status="NOT RUN" start="2025-07-14T09:13:10.996737" elapsed="0.000000"/>
+</kw>
+<kw name="Realizar o login de um usuário" owner="autenticacao">
+<var>${TOKEN_USER_01}</var>
+<arg>USUARIO=${USER_01}</arg>
+<doc>Realiza o login conforme os dados de usuário informados e retorna o token gerado</doc>
+<status status="NOT RUN" start="2025-07-14T09:13:10.996737" elapsed="0.000000"/>
+</kw>
+<kw name="Set Global Variable" owner="BuiltIn">
+<var>${TOKEN_USER_01}</var>
+<arg>${TOKEN_USER_01}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<status status="NOT RUN" start="2025-07-14T09:13:10.996737" elapsed="0.000000"/>
+</kw>
+<kw name="Realizar o login de um usuário" owner="autenticacao">
+<var>${TOKEN_USER_02}</var>
+<arg>USUARIO=${USER_02}</arg>
+<doc>Realiza o login conforme os dados de usuário informados e retorna o token gerado</doc>
+<status status="NOT RUN" start="2025-07-14T09:13:10.996737" elapsed="0.000000"/>
+</kw>
+<kw name="Set Global Variable" owner="BuiltIn">
+<var>${TOKEN_USER_02}</var>
+<arg>${TOKEN_USER_02}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<status status="NOT RUN" start="2025-07-14T09:13:10.996737" elapsed="0.000000"/>
+</kw>
+<doc>Gera os tokens de acesso para os perfis de usuários e grava em variáveis globais</doc>
+<status status="FAIL" start="2025-07-14T09:13:10.738514" elapsed="0.258223">Invalid IF condition: Evaluating expression '"${TOKEN.json()[\'access_token\']}" == "${EMPTY}"' failed: Resolving variable '${TOKEN.json()['access_token']}' failed: KeyError: 'access_token'</status>
+</kw>
+<doc>Cria uma sessão para todas as APIs do sistema, que serão utilizadas nos testes, e gera os tokens de acesso (gravando em variáveis globais)</doc>
+<status status="FAIL" start="2025-07-14T09:13:10.738514" elapsed="0.258223">Invalid IF condition: Evaluating expression '"${TOKEN.json()[\'access_token\']}" == "${EMPTY}"' failed: Resolving variable '${TOKEN.json()['access_token']}' failed: KeyError: 'access_token'</status>
+</kw>
+<kw name="Fechar conexões com as APIs" owner="setup_teardown" type="TEARDOWN">
+<msg time="2025-07-14T09:13:10.996737" level="TRACE">Arguments: [  ]</msg>
+<kw name="Delete All Sessions" owner="RequestsLibrary">
+<msg time="2025-07-14T09:13:10.996737" level="TRACE">Arguments: [  ]</msg>
+<msg time="2025-07-14T09:13:10.996737" level="INFO">Deleting All Sessions</msg>
+<msg time="2025-07-14T09:13:10.996737" level="TRACE">Return: None</msg>
+<doc>Removes all the session objects</doc>
+<status status="PASS" start="2025-07-14T09:13:10.996737" elapsed="0.000000"/>
+</kw>
+<msg time="2025-07-14T09:13:10.996737" level="TRACE">Return: None</msg>
+<status status="PASS" start="2025-07-14T09:13:10.996737" elapsed="0.000000"/>
+</kw>
+<status status="FAIL" start="2025-07-14T09:13:10.738514" elapsed="0.258223">Setup failed:
+Invalid IF condition: Evaluating expression '"${TOKEN.json()[\'access_token\']}" == "${EMPTY}"' failed: Resolving variable '${TOKEN.json()['access_token']}' failed: KeyError: 'access_token'</status>
+</test>
+<status status="FAIL" start="2025-07-14T09:13:10.108705" elapsed="0.888032"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="POC">POC</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2025-07-14T09:13:10.581755" level="ERROR">Error in file 'C:\Users\Usuário\Desktop\Curso_Robot\AUTOMACAO_TREINAMENTO\app\resources\main.resource' on line 5: Importing library 'FakerLibrary' failed: ModuleNotFoundError: No module named 'pkg_resources'
+Traceback (most recent call last):
+  File "C:\Users\Usuário\Desktop\Curso_Robot\AUTOMACAO_TREINAMENTO\venv\Lib\site-packages\FakerLibrary\__init__.py", line 1, in &lt;module&gt;
+    import pkg_resources
+PYTHONPATH:
+  C:\Users\Usuário\Desktop\Curso_Robot\AUTOMACAO_TREINAMENTO\venv\Scripts\robot.exe
+  C:\Users\Usuário\AppData\Local\Programs\Python\Python312\python312.zip
+  C:\Users\Usuário\AppData\Local\Programs\Python\Python312\DLLs
+  C:\Users\Usuário\AppData\Local\Programs\Python\Python312\Lib
+  C:\Users\Usuário\AppData\Local\Programs\Python\Python312
+  C:\Users\Usuário\Desktop\Curso_Robot\AUTOMACAO_TREINAMENTO\venv
+  C:\Users\Usuário\Desktop\Curso_Robot\AUTOMACAO_TREINAMENTO\venv\Lib\site-packages</msg>
+</errors>
+</robot>
