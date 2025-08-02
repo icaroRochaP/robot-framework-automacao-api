@@ -1,0 +1,67 @@
+# template.yaml
+# Este arquivo define a receita para criar um novo projeto de automação
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: robot-framework-automacao
+  title: Automação de Teste - Robot Framework
+  description: Template para iniciar um novo projeto de automação de teste com Robot Framework.
+  tags:
+    - robot-framework
+    - automacao
+    - api
+    - qa
+spec:
+  owner: icaro-rocha
+  type: service
+  
+  parameters:
+    - title: Informações do Novo Projeto
+      properties:
+        projectName:
+          title: Nome do Repositório
+          type: string
+          description: O nome do novo repositório no GitHub (ex: robot-itau-qa).
+          ui:field: EntityNamePicker
+        description:
+          title: Descrição
+          type: string
+          description: Uma breve descrição para o novo repositório.
+        owner:
+          title: Dono do Projeto
+          type: string
+          description: O time ou usuário responsável pelo novo projeto.
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds: ['Group', 'User']
+
+  steps:
+    - id: fetch-base
+      name: Puxando o template
+      action: fetch:template
+      input:
+        url: ./ # Pega o conteúdo do repositório atual
+
+    - id: publish-to-github
+      name: Publicando no GitHub
+      action: publish:github
+      input:
+        repoUrl: 'github.com?owner=icaroRochaP&repo=${{ parameters.projectName }}'
+        defaultBranch: main
+        description: ${{ parameters.description }}
+        token: ${{ secrets.GITHUB_TOKEN }} # Usa o token configurado no Dokploy
+
+    - id: register-in-catalog
+      name: Registrando no Catálogo
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps['publish-to-github'].output.repoContentsUrl }}
+        catalogInfoPath: '/catalog-info.yaml'
+
+  output:
+    links:
+      - title: Repositório Criado
+        url: ${{ steps['publish-to-github'].output.remoteUrl }}
+      - title: Página do Catálogo
+        icon: catalog
+        url: ${{ steps['register-in-catalog'].output.entityRef | parseEntityRef | formatEntityRef }}
